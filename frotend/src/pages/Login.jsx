@@ -1,22 +1,22 @@
-import React, { useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = ({ onLogin }) => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [remember, setRemember] = useState(false)
-  const [error, setError] = useState('')
-  const navigate = useNavigate()
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [remember, setRemember] = useState(false);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   function submit(e) {
-    e.preventDefault()
+    e.preventDefault();
     if (!email || !password) {
-      setError('Please provide email and password')
-      return
+      setError("Please provide email and password");
+      return;
     }
     // frontend-only auth: accept any credentials
-    onLogin({ email })
-    navigate('/')
+    onLogin({ email });
+    navigate("/");
   }
 
   return (
@@ -25,32 +25,45 @@ const Login = ({ onLogin }) => {
         <div className="auth-left">
           <div className="logo">FINEbank.IO</div>
           <h2>Welcome back</h2>
-          <p className="muted">Manage loans, payments and track transactions in one place. Sign in to continue to your dashboard.</p>
+          <p className="muted">
+            Manage loans, payments and track transactions in one place. Sign in
+            to continue to your dashboard.
+          </p>
         </div>
 
         <form className="auth-right" onSubmit={submit}>
           <h3>Sign in to your account</h3>
           {error && <div className="auth-error">{error}</div>}
           <label>Email</label>
-          <input value={email} onChange={e=>setEmail(e.target.value)} placeholder="you@email.com" required />
+          <input
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="you@email.com"
+            required
+          />
 
           <label>Password</label>
-          <input type="password" value={password} onChange={e=>setPassword(e.target.value)} placeholder="Enter your password" required />
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Enter your password"
+            required
+          />
 
-          <div className="row-between">
-            <label className="checkbox"><input type="checkbox" checked={remember} onChange={e=>setRemember(e.target.checked)} /><span>Remember me</span></label>
-            <Link to="/signup" className="small link">Create account</Link>
-          </div>
+          <div className="row-between"></div>
 
           <div className="auth-actions">
-            <button className="btn primary" type="submit">Sign in</button>
+            <button className="btn primary" type="submit">
+              Log in
+            </button>
           </div>
 
           <div className="forgot muted small">Forgot password?</div>
         </form>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

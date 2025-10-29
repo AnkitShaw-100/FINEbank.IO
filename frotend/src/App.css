@@ -431,6 +431,27 @@ body {
   border: 1px solid #e6edf3
 }
 
+/* Modal form improvements for loan creation */
+.modal-card {
+  max-width: 720px;
+  width: 100%;
+}
+
+.modal-card h3 { font-size: 18px }
+
+.input-with-addon { display:flex; align-items:center }
+.input-with-addon input { flex:1 }
+.input-with-addon .addon { margin-left:8px; background:#f1f5f9; padding:6px 8px; border-radius:6px; color:#374151; font-weight:600 }
+
+.preset-buttons { display:flex; gap:8px; flex-wrap:wrap }
+.preset-buttons .btn.ghost { padding:6px 10px }
+
+.modal-card textarea { width:100%; padding:8px; border-radius:6px; border:1px solid #e6edf3 }
+
+.modal { position: fixed; inset: 0; background: rgba(2, 6, 23, 0.45); display:flex; align-items:center; justify-content:center; padding:24px }
+
+.modal-card .field-error { color:#b91c1c; margin-bottom:6px }
+
 .modal-actions {
   display: flex;
   justify-content: flex-end;
@@ -439,6 +460,30 @@ body {
 
 .transactions .card-title {
   margin-bottom: 6px
+}
+
+/* Make only the transactions list scrollable inside its card */
+.card.transactions {
+  display: flex;
+  flex-direction: column;
+}
+
+.card.transactions .tx-list {
+  max-height: 320px; /* adjust as needed */
+  overflow-y: auto;
+  padding-right: 6px; /* space for scrollbar */
+}
+
+/* nicer thin scrollbar for modern browsers */
+.card.transactions .tx-list::-webkit-scrollbar {
+  width: 8px;
+}
+.card.transactions .tx-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+.card.transactions .tx-list::-webkit-scrollbar-thumb {
+  background: rgba(15,23,42,0.12);
+  border-radius: 8px;
 }
 
 /* Transactions page toolbar and list improvements */
@@ -647,6 +692,12 @@ body {
   gap: 12px
 }
 
+/* make left auth panel corners rounded to match the card */
+.auth-left {
+  /* make left panel fully rounded on all corners to match request */
+  border-radius: 10px;
+}
+
 .auth-left .logo {
   font-weight: 800;
   font-size: 22px;
@@ -670,8 +721,8 @@ body {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  border-top-right-radius: 8px;
-  border-bottom-right-radius: 8px
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
 .auth-right h3 {

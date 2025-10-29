@@ -1,7 +1,6 @@
-import React from 'react'
+import React from "react";
 
 // Header removed per request — keep a no-op component so imports stay valid.
-const Header = () => null
+const Header = () => null;
 
-export default Header
-
+export default Header;

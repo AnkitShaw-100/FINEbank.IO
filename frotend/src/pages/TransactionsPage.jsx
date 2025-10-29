@@ -10,7 +10,10 @@ const TransactionsPage = ({ transactions = [] }) => {
     return transactions.filter((t) => {
       if (typeFilter !== "all" && t.type !== typeFilter) return false;
       if (!term) return true;
-      return (t.title || "").toLowerCase().includes(term) || String(t.amount).includes(term);
+      return (
+        (t.title || "").toLowerCase().includes(term) ||
+        String(t.amount).includes(term)
+      );
     });
   }, [transactions, q, typeFilter]);
 
@@ -25,7 +28,11 @@ const TransactionsPage = ({ transactions = [] }) => {
             value={q}
             onChange={(e) => setQ(e.target.value)}
           />
-          <select className="txn-filter" value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)}>
+          <select
+            className="txn-filter"
+            value={typeFilter}
+            onChange={(e) => setTypeFilter(e.target.value)}
+          >
             <option value="all">All</option>
             <option value="credit">Credits</option>
             <option value="debit">Debits</option>
