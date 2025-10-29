@@ -1,9 +1,17 @@
 import React, { useState } from 'react'
 import './App.css'
+import { Routes, Route, Navigate, Outlet, useLocation } from 'react-router-dom'
 import Sidebar from './components/Sidebar'
 import Header from './components/Header'
 import Dashboard from './components/Dashboard'
 import LoanForm from './components/LoanForm'
+import ProtectedRoute from './components/ProtectedRoute'
+import Home from './pages/Home'
+import LoansPage from './pages/LoansPage'
+import TransactionsPage from './pages/TransactionsPage'
+import SettingsPage from './pages/SettingsPage'
+import Login from './pages/Login'
+import Signup from './pages/Signup'
 
 const initialLoans = [
   { id: 1, name: 'Car Loan', amount: 15000, remaining: 8000, rate: 6.5, dueDate: '2025-11-15', status: 'active' },
@@ -19,6 +27,15 @@ const initialTransactions = [
 const App = () => {
   const [loans, setLoans] = useState(initialLoans)
   const [transactions, setTransactions] = useState(initialTransactions)
+  const [user, setUser] = useState(null)
+
+  function onLogin(userData){
+    setUser(userData)
+  }
+
+  function onSignup(userData){
+    setUser(userData)
+  }
 
   function addLoan(loan) {
     const id = Date.now()
@@ -44,20 +61,41 @@ const App = () => {
     setTransactions((t) => [{ id: Date.now(), title: `Loan settled #${loanId}`, amount: 0, date: new Date().toISOString().slice(0,10), type: 'info' }, ...t])
   }
 
-  return (
-    <div className="app-root">
-      <Sidebar />
-      <div className="main-area">
-        <Header />
-        <main className="content">
-          <div className="top-row">
-            <h1>Loan Management Dashboard</h1>
-            <LoanForm onAdd={addLoan} />
-          </div>
-          <Dashboard loans={loans} transactions={transactions} onPay={makePayment} onSettle={settleLoan} onAddLoan={addLoan} />
-        </main>
+  const Layout = ({children}) => {
+    const location = useLocation()
+    const hideHeader = location.pathname === '/'
+    return (
+      <div className="app-root">
+        <Sidebar />
+        <div className="main-area">
+          {!hideHeader && <Header />}
+          <main className="content">
+            {children}
+          </main>
+        </div>
       </div>
-    </div>
+    )
+  }
+
+  return (
+    <Routes>
+      <Route path="/login" element={<Login onLogin={onLogin} />} />
+      <Route path="/signup" element={<Signup onSignup={onSignup} />} />
+
+      <Route path="/" element={<ProtectedRoute isAuth={!!user}><Layout><Outlet /></Layout></ProtectedRoute>}>
+        <Route index element={<div>
+          <div className="page-header">
+            <h1 className="page-title">Loan Management Dashboard</h1>
+            <div className="header-actions"><LoanForm onAdd={addLoan} /></div>
+          </div>
+          <Home loans={loans} transactions={transactions} onPay={makePayment} onSettle={settleLoan} />
+        </div>} />
+        <Route path="loans" element={<LoansPage loans={loans} onPay={makePayment} onSettle={settleLoan} />} />
+        <Route path="transactions" element={<TransactionsPage transactions={transactions} />} />
+        <Route path="settings" element={<SettingsPage />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Route>
+    </Routes>
   )
 }
 

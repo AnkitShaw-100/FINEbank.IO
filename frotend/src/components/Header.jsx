@@ -1,17 +1,7 @@
 import React from 'react'
 
-const Header = () => {
-  return (
-    <header className="header">
-      <div className="search">
-        <input placeholder="Search here" />
-      </div>
-      <div className="header-right">
-        <div className="notif">🔔</div>
-        <div className="profile">Tanzir</div>
-      </div>
-    </header>
-  )
-}
+// Header removed per request — keep a no-op component so imports stay valid.
+const Header = () => null
 
 export default Header
+

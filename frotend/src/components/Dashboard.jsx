@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Transactions from './Transactions'
+import Transactions from './TransactionsList'
 
 const Dashboard = ({ loans = [], transactions = [], onPay, onSettle }) => {
   const totalBalance = loans.reduce((s, l) => s + (l.remaining || 0), 0)
@@ -66,7 +66,6 @@ const Dashboard = ({ loans = [], transactions = [], onPay, onSettle }) => {
             <div className="break-grid">
               <div className="break-item">Housing<span>$250</span></div>
               <div className="break-item">Food<span>$350</span></div>
-              <div className="break-item">Transport<span>$50</span></div>
             </div>
           </div>
         </div>
