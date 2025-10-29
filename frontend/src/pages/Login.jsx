@@ -32,7 +32,7 @@ const Login = ({ onLogin }) => {
         </div>
 
         <form className="auth-right" onSubmit={submit}>
-          <h3>Sign in to your account</h3>
+          <h3>Log in to your account</h3>
           {error && <div className="auth-error">{error}</div>}
           <label>Email</label>
           <input
